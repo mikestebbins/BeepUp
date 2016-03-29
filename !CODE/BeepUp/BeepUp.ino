@@ -6,73 +6,51 @@ Plays a construction vehicle back-up tone when the button is held depressed
 
  created 2016-03-27
  by Mike Stebbins
- Very roughly based on code from Tom Igoe (http://www.arduino.cc/en/Tutorial/Tone)
-
-This example code is in the public domain.
-
-I left in the tones in Set-up and a For loop to select tones in loop, but commented them out
-
+TODO FIX THIS Very roughly based on code from Tom Igoe (http://www.arduino.cc/en/Tutorial/Tone)
  */
-#include "pitches.h"
 
-#define tonePin 4
-#define buttonPin 3 
 
-// notes in the melody:
-int melody[] = {
-  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
-};
-
-// note durations: 4 = quarter note, 8 = eighth note, etc.:
-int noteDurations[] = {
-  4, 8, 8, 4, 4, 4, 4, 4
-};
+#define tonePin 0
+#define ledPin 1
+#define buttonPin 2 
+#define frequency 3000
+#define onTime 300
+#define offTime 300
 
 void setup() {
-//Serial.begin(9600);
-pinMode(buttonPin,INPUT_PULLUP);
-delay(500);
-/*
-  // iterate over the notes of the melody:
-  for (int thisNote = 0; thisNote < 8; thisNote++) {
-
-    // to calculate the note duration, take one second
-    // divided by the note type.
-    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-    int noteDuration = 1000 / noteDurations[thisNote];
-    tone(tonePin, melody[thisNote], noteDuration);
-
-    // to distinguish the notes, set a minimum time between them.
-    // the note's duration + 30% seems to work well:
-    int pauseBetweenNotes = noteDuration * 1.30;
-    delay(pauseBetweenNotes);
-    // stop the tone playing:
-    noTone(tonePin);
-  }
-  */
-  //Serial.println("here we go...");
+  pinMode(buttonPin,INPUT_PULLUP);
+  pinMode(tonePin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+  delay(100);
 }
 
 void loop() {
   boolean buttonState = digitalRead(buttonPin);
-  //Serial.println(buttonState);
-
   if (buttonState == HIGH)  {
-    tone(tonePin,1000,750);
-    delay(1100);
-    noTone(tonePin);
+    digitalWrite(ledPin,HIGH);
+    beep(tonePin,frequency,onTime);
+    delay(offTime);
     }
     else  {
+      digitalWrite(ledPin,LOW);
       delay (250);  
     }
     delay(10);
-
- /*
-  for (int i = 50; i <= 1000; i=i+5)  {
-    tone(tonePin, i, 250);
-    delay(200);
-    Serial.println(i);
-  }
-  */
 }
+
+// the sound producing function
+void beep (unsigned char speakerPin, int frequencyInHertz, long timeInMilliseconds)
+{   // http://web.media.mit.edu/~leah/LilyPad/07_sound_code.html
+          int x;   
+          long delayAmount = (long)(1000000/frequencyInHertz);
+          long loopTime = (long)((timeInMilliseconds*1000)/(delayAmount*2));
+          for (x=0;x<loopTime;x++)  
+          {  
+              digitalWrite(speakerPin,HIGH);
+              delayMicroseconds(delayAmount);
+              digitalWrite(speakerPin,LOW);
+              delayMicroseconds(delayAmount);
+          }  
+}
+
 
