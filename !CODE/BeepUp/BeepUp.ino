@@ -15,8 +15,8 @@ I left in the tones in Set-up and a For loop to select tones in loop, but commen
  */
 #include "pitches.h"
 
-#define tonePin 3
-#define buttonPin 2 
+#define tonePin 4
+#define buttonPin 3 
 
 // notes in the melody:
 int melody[] = {
@@ -29,7 +29,7 @@ int noteDurations[] = {
 };
 
 void setup() {
-Serial.begin(9600);
+//Serial.begin(9600);
 pinMode(buttonPin,INPUT_PULLUP);
 delay(500);
 /*
@@ -50,12 +50,12 @@ delay(500);
     noTone(tonePin);
   }
   */
-  Serial.println("here we go...");
+  //Serial.println("here we go...");
 }
 
 void loop() {
   boolean buttonState = digitalRead(buttonPin);
-  Serial.println(buttonState);
+  //Serial.println(buttonState);
 
   if (buttonState == HIGH)  {
     tone(tonePin,1000,750);
