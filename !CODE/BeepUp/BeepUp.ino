@@ -7,7 +7,7 @@ in order to delight a 2-old-boy
  * 8-ohm speaker attached to Gnd and Pin 0
  * button attached to Gnd and Pin 2
 
- created 2016-03-28
+ created 2016-03-29
  by Mike Stebbins
 based roughly on Trinket sound code by: // http://web.media.mit.edu/~leah/LilyPad/07_sound_code.html
 */
@@ -18,7 +18,7 @@ based roughly on Trinket sound code by: // http://web.media.mit.edu/~leah/LilyPa
 #define frequency 3000
 #define onTime 250
 #define offTime 250
-#define ledOnOrOff 1
+#define ledOnOrOff 0
 
 void setup() {
   pinMode(buttonPin,INPUT_PULLUP);
@@ -26,7 +26,7 @@ void setup() {
   if (ledOnOrOff == 1)  {
     pinMode(ledPin, OUTPUT);
   }
-  delay(100);
+  delay(20);
 }
 
 void loop() {
@@ -42,7 +42,7 @@ void loop() {
       if (ledOnOrOff == 1)  {
         digitalWrite(ledPin,LOW);
       }
-      delay (250);  
+      delay (10);  
     }
     delay(10);
 }
